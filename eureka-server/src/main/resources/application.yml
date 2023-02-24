@@ -1,0 +1,29 @@
+# Give a name to the eureka server
+spring:
+  application:
+    name: eureka-server
+  output:
+    ansi:
+      enabled: ALWAYS
+server:
+  port: 8761
+
+# eureka by default will register itself as a client. So, we need to set it to false.
+# What's a client server? See other microservices (image, gallery, auth, etc).
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  server:
+    enableSelfPreservation: false
+
+#logging.level.com.netflix.discovery.shared.resolver.aws.ConfigClusterResolver= WARN
+logging:
+  file:
+    path: ${LOG_PATH:D:/CGS/RND/logs/${spring.application.name}}
+    name: ${logging.file.path}/${spring.application.name}.log
+  pattern:
+    rolling-file-name: ${logging.file.path}/${spring.application.name}-%d{yyyy-MM-dd}.%i.log
+    max-size: 1MB
+    total-size-cap: 10MB
+    max-history: 30

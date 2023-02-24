@@ -1,0 +1,34 @@
+server:
+  port: 9081
+  error.whitelabel.enabled: false
+spring:
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 90
+    repositories:
+      enabled: false
+
+  application:
+    name: auth-service
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cgs
+    username: postgres
+    password: surya
+eureka:
+  instance:
+    prefer-ip-address: true
+property:
+  encryption:
+    enable: n
+
+jwt:
+  secret: BB5D561D633F87E4EB7694FC87A66
+

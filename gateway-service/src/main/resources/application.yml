@@ -1,0 +1,35 @@
+message: local
+server:
+  port: 9080
+  error.whitelabel.enabled: false
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+management:
+  endpoints:
+    gateway:
+      enabled: true
+    web:
+      exposure:
+        include: '*'
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      discovery.locator.enabled: true
+      default-filters:
+        - AuthFilter
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth/**,/test/**
